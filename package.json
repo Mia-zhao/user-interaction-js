@@ -1,0 +1,48 @@
+{
+  "name": "user-interaction-js",
+  "private": false,
+  "version": "0.0.1",
+  "description": "A lightweight JavaScript library for capturing and recording user interactions like clicks, scrolls, and inputs on web pages.",
+  "main": "./dist/user-interaction-js.cjs",
+  "module": "./dist/user-interaction-js.mjs",
+  "types": "./dist/user-interaction-js.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/user-interaction-js.d.ts",
+      "require": "./dist/user-interaction-js.cjs",
+      "import": "./dist/user-interaction-js.mjs"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "format": "prettier . --write"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mia-zhao/user-interaction-js.git"
+  },
+  "keywords": [
+    "user interaction",
+    "user journey",
+    "user flow",
+    "test automation",
+    "session recording",
+    "browser recording"
+  ],
+  "author": "Mia Zhao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Mia-zhao/user-interaction-js/issues"
+  },
+  "homepage": "https://github.com/Mia-zhao/user-interaction-js#readme",
+  "devDependencies": {
+    "@types/node": "^20.12.2",
+    "path": "^0.12.7",
+    "prettier": "^3.2.5",
+    "terser": "^5.30.0",
+    "typescript": "^5.4.3",
+    "vite": "^5.2.0",
+    "vite-plugin-dts": "^3.8.1"
+  }
+}
