@@ -1,6 +1,6 @@
 export enum StepType {
   Click,
-  Input,
+  Keydown,
   Scroll,
 }
 
@@ -9,15 +9,27 @@ type Delta = {
   y: number;
 };
 
-type ListenerType = (data: Step) => void;
+export type Step = ClickStep | KeydownStep | ScrollStep;
 
-export type Step = {
-  type: StepType;
-  element?: HTMLElement;
-  selector?: string;
-  scrollDelta?: Delta;
-  inputData?: string;
+type ClickStep = {
+  type: StepType.Click;
+  element: HTMLElement;
+  selector: string;
 };
+
+type KeydownStep = {
+  type: StepType.Keydown;
+  element: HTMLElement;
+  selector: string;
+  key: string;
+};
+
+type ScrollStep = {
+  type: StepType.Scroll;
+  scrollDelta: Delta;
+};
+
+type ListenerType = (data: Step) => void;
 
 export class StepLibrary {
   private steps: Step[];

@@ -66,7 +66,7 @@ export class Recorder {
 
     document.addEventListener("click", this.clickHandler);
     document.addEventListener("wheel", this.scrollHandler);
-    document.addEventListener("input", this.inputHandler);
+    document.addEventListener("keydown", this.keydownHandler);
   }
 
   private deregisterEventListeners() {
@@ -76,7 +76,7 @@ export class Recorder {
     }
     document.removeEventListener("click", this.clickHandler);
     document.removeEventListener("wheel", this.scrollHandler);
-    document.removeEventListener("input", this.inputHandler);
+    document.removeEventListener("keydown", this.keydownHandler);
   }
 
   private enableMouseOverStyle() {
@@ -129,26 +129,31 @@ export class Recorder {
     };
   }
 
-  private clickHandler(event: MouseEvent) {
+  clickHandler = (event: MouseEvent) => {
     const target = event.target as HTMLElement;
     this.stepLib.pushStep({
       type: StepType.Click,
       element: target,
       selector: getCssSelectorPath(target),
     });
-  }
+  };
 
-  private scrollHandler(event: WheelEvent) {
+  scrollHandler = (event: WheelEvent) => {
     this.stepLib.pushStep({
       type: StepType.Scroll,
       scrollDelta: { x: event.deltaX, y: event.deltaY },
     });
-  }
+  };
 
-  private inputHandler(event: Event) {
-    const target = event.target as HTMLInputElement;
-    this.stepLib.pushStep({ type: StepType.Input, inputData: target.value });
-  }
+  keydownHandler = (event: KeyboardEvent) => {
+    const target = event.target as HTMLElement;
+    this.stepLib.pushStep({
+      type: StepType.Keydown,
+      element: target,
+      selector: getCssSelectorPath(target),
+      key: event.key,
+    });
+  };
 }
 
 function getBoundingElement(event: MouseEvent): HTMLElement | null {
@@ -178,11 +183,11 @@ function getCssSelector(target: Element): string {
   return `${selector}:${nth}`;
 }
 
-// get CSS selector path from html body
+// get CSS selector path from html
 function getCssSelectorPath(target: Element) {
   let path = "";
   let current: Element | null = target;
-  while (current !== null && current.tagName.toLowerCase() !== "body") {
+  while (current !== null && current.tagName.toLowerCase() !== "html") {
     const selector = getCssSelector(current);
     path = `${selector} > ${path}`;
     current = current.parentElement;
