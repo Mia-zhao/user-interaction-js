@@ -13,6 +13,7 @@
       "import": "./dist/user-interaction-js.mjs"
     }
   },
+  "files": ["dist/**/*"],
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
