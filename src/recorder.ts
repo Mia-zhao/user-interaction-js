@@ -1,5 +1,5 @@
 import { Config } from "./config";
-import { StepLibrary, StepType } from "./step";
+import { Step, StepLibrary, StepType } from "./step";
 
 enum State {
   Idle,
@@ -37,11 +37,11 @@ export class Recorder {
     this.registerEventListeners();
   }
 
-  public subscribe(callback: (data: any) => void) {
+  public subscribe(callback: (data: Step) => void) {
     this.stepLib.subscribe(callback);
   }
 
-  public unsubscribe(callback: () => void) {
+  public unsubscribe(callback: (data: Step) => void) {
     this.stepLib.unsubscribe(callback);
   }
 
